@@ -4,7 +4,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../service/firebaseConfig';
 import { toast } from 'sonner';
 import InfoSection from './components/infoSection';
-import Hotels from './components/hotels';
+import Hotels from './components/Hotels';
 
 function Viewtrip() {
     const { tripId } = useParams();
