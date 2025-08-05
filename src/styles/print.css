@@ -1,0 +1,59 @@
+/* Print-specific styles for trip details */
+@media print {
+  /* Hide navigation elements when printing */
+  .no-print {
+    display: none !important;
+  }
+  
+  /* Ensure content flows well on printed pages */
+  .print-page-break {
+    page-break-before: always;
+  }
+  
+  .print-avoid-break {
+    page-break-inside: avoid;
+  }
+  
+  /* Adjust colors for print */
+  .bg-gradient-to-r,
+  .bg-gradient-to-br,
+  .bg-gradient-to-t {
+    background: #f8f9fa !important;
+    color: #333 !important;
+  }
+  
+  /* Ensure text is readable in print */
+  .text-white {
+    color: #333 !important;
+  }
+  
+  /* Remove shadows and transforms for print */
+  .shadow-lg,
+  .shadow-xl,
+  .shadow-md {
+    box-shadow: none !important;
+  }
+  
+  .transform,
+  .hover\:-translate-y-1 {
+    transform: none !important;
+  }
+  
+  /* Optimize spacing for print */
+  .space-y-8 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  /* Ensure images fit well */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Print-friendly buttons */
+  button {
+    border: 1px solid #ccc;
+    background: white;
+    color: #333;
+  }
+}

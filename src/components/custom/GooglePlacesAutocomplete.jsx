@@ -1,35 +1,40 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { loadGoogleMapsAPI } from '../../utils/googleMapsLoader';
 
 const GooglePlacesAutocomplete = ({ onPlaceSelect, placeholder }) => {
   const [inputValue, setInputValue] = useState('');
   const [predictions, setPredictions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [mapsLoaded, setMapsLoaded] = useState(false);
   const inputRef = useRef(null);
 
   // Debug: log predictions on every render
   console.log('Dropdown predictions:', predictions);
 
   useEffect(() => {
-    const loadGoogleMaps = () => {
-      if (window.google && window.google.maps && window.google.maps.places) {
+    const initializeGoogleMaps = async () => {
+      try {
+        await loadGoogleMapsAPI();
+        setMapsLoaded(true);
         // Check if new API is available, fallback to old one
         if (window.google.maps.places.AutocompleteSuggestion) {
           console.log('✅ Using new AutocompleteSuggestion API');
         } else {
           console.log('⚠️ Using legacy AutocompleteService API');
         }
-      } else {
-        setTimeout(loadGoogleMaps, 100);
+      } catch (error) {
+        console.error('Failed to load Google Maps:', error);
       }
     };
-    loadGoogleMaps();
+
+    initializeGoogleMaps();
   }, []);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
     
-    if (value.length > 2 && window.google && window.google.maps) {
+    if (value.length > 2 && mapsLoaded && window.google && window.google.maps) {
       // Use new API if available, otherwise fallback to old one
       if (window.google.maps.places.AutocompleteSuggestion) {
         // New API implementation

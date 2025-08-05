@@ -105,4 +105,9 @@ firebase-debug.log
 firebase-debug.*.log
 
 # Local Netlify folder
-.netlify 
+.netlify
+
+# OAuth credentials and sensitive files
+*.json
+ai\ trip.json
+oauth-credentials.json 
